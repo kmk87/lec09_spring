@@ -14,6 +14,12 @@ public class BoardDao {
 	@Autowired
 	SqlSession sqlSession;
 	
+	// 페이징
+	public int selectBoardCount() {
+		return sqlSession.selectOne("boardMapper.selectBoardCount");
+		
+	}
+	
 	public List<Board> selectBoardList(){
 		return sqlSession.selectList("boardMapper.selectBoardList");
 	}
