@@ -14,9 +14,11 @@ public class BoardDao {
 	@Autowired
 	SqlSession sqlSession;
 	
+	// 제목으로 검색
+	
 	// 페이징
-	public int selectBoardCount() {
-		return sqlSession.selectOne("boardMapper.selectBoardCount");
+	public int selectBoardCount(Board option) {
+		return sqlSession.selectOne("boardMapper.selectBoardCount",option);
 		
 	}
 	

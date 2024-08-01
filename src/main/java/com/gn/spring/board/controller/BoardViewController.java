@@ -44,8 +44,11 @@ public class BoardViewController {
 	@GetMapping("/board")
 	public String selectBoardList(Model model, Board option) {
 		
+		// 제목으로 검색
+		// 아무것도 써줄 필요없음. option에 들어가있음
+		
 		// 페이징
-		option.setTotalData(boardService.selectBoardCount());
+		option.setTotalData(boardService.selectBoardCount(option));
 		
 		
 		List<Board> resultList = boardService.selectBoardList(option);
@@ -54,6 +57,7 @@ public class BoardViewController {
 		// 2. Model(매개변수 설정!!) 위의 (Model model)
 		model.addAttribute("resultList",resultList);
 		model.addAttribute("paging",option);
+		
 		
 		// /WEB-INF/views/board/list.jsp
 		return "/board/list";
