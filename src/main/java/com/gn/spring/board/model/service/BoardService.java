@@ -28,10 +28,10 @@ public class BoardService {
 		
 	}
 	
-	public List<Board> selectBoardList(){
+	public List<Board> selectBoardList(Board option){
 		List<Board> resultList = new ArrayList<Board>();
 		try {
-			resultList = boardDao.selectBoardList();
+			resultList = boardDao.selectBoardList(option);
 			
 		} catch(Exception e) {
 			e.printStackTrace();

@@ -47,11 +47,13 @@ public class BoardViewController {
 		// 페이징
 		option.setTotalData(boardService.selectBoardCount());
 		
-		List<Board> resultList = boardService.selectBoardList();
+		
+		List<Board> resultList = boardService.selectBoardList(option);
 		LOGGER.info(resultList);
 		
 		// 2. Model(매개변수 설정!!) 위의 (Model model)
 		model.addAttribute("resultList",resultList);
+		model.addAttribute("paging",option);
 		
 		// /WEB-INF/views/board/list.jsp
 		return "/board/list";

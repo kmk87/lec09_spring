@@ -10,9 +10,11 @@
 	</select>
 
 
-	<select id="selectBoardList" resultType="com.gn.spring.board.model.vo.Board">
+	<select id="selectBoardList" resultType="com.gn.spring.board.model.vo.Board"
+	parameterType="com.gn.spring.board.model.vo.Board">
 		SELECT *
 		FROM `board`
+		LIMIT #{limitPageNo}, #{numPerPage}
 	</select>
 	
 	

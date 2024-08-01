@@ -20,7 +20,7 @@ public class BoardDao {
 		
 	}
 	
-	public List<Board> selectBoardList(){
-		return sqlSession.selectList("boardMapper.selectBoardList");
+	public List<Board> selectBoardList(Board option){
+		return sqlSession.selectList("boardMapper.selectBoardList",option);
 	}
 }

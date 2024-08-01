@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>게시판 목록</title>
 <link href="<c:url value='/resources/css/board/list.css'/>" rel="stylesheet" type="text/css" />
+<link href='<c:url value="/resources/css/include/paging.css"/>' rel="stylesheet" type="text/css">
 </head>
 <body>
 	<jsp:include page="../include/header.jsp"/>
@@ -62,17 +63,19 @@
 						</c:choose>
 					</tbody>
 				</table>
-				<c:if test="${not empty paging }">
-					<div>
-						<div>
-							<c:if test="${paging.prev }">
-								<a href="<c:url value='/boardList?nowPage=${paging.pageBarStart-1 }'/>">&laquo;</a>
-							</c:if>
-							<c:forEach begin="${paging.pageBarStart }" end="${paging.pageBarEnd }" var="idx">
-								<a href="<c:url value='/boardList?nowPage=${idx }'/>"></a>
-							
-							</c:forEach>
-						</div>
+				<c:if test="${not empty paging}">
+					<div class="center">
+	  					<div class="pagination">
+	  					<c:if test="${paging.prev}">
+	  						<a href="<c:url value='/board?nowPage=${paging.pageBarStart-1}'/>">&laquo;</a>
+	  					</c:if>
+	  				<c:forEach begin="${paging.pageBarStart}" end="${paging.pageBarEnd}" var="idx">
+	  					<a href="<c:url value='/board?nowPage=${idx}'/>" <c:out value="${paging.nowPage == idx ? 'class=active' : '' }"/>>${idx}</a>
+	  				</c:forEach>
+						<c:if test="${paging.next}">
+		  					<a href="<c:url value='/board?nowPage=${paging.pageBarEnd+1}'/>">&raquo;</a>
+						</c:if>
+	  					</div>
 					</div>
 				</c:if>
 				<input type="button" value="등록" style="float:right;">
