@@ -14,12 +14,16 @@ public class BoardDao {
 	@Autowired
 	SqlSession sqlSession;
 	
+	public int deleteBoard(int board_no) {
+		return sqlSession.delete("boardMapper.deleteBoard", board_no);
+	}
+	
 	public int updateBoard(Board vo) {
 		return sqlSession.update("boardMapper.updateBoard", vo);
 	}
 	
-	public Board selectBardOne(int board_no) {
-		return sqlSession.selectOne("boardMapper.selectBardOne",board_no);
+	public Board selectBoardOne(int board_no) {
+		return sqlSession.selectOne("boardMapper.selectBoardOne",board_no);
 	}
 	
 	public int insertBoard(Board vo) {

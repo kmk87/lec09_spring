@@ -84,12 +84,22 @@ public class BoardViewController {
 		return "/board/detail";
 	}
 	
+	// 게시글 수정
 	@GetMapping("/board/update/{board_no}")
 	public String updateBoard(@PathVariable("board_no") int board_no,
 			Model model) {
 		Board vo = boardService.selectBoardOne(board_no);
 		model.addAttribute("vo",vo);
 		return "/board/update";
+	}
+	
+	// 과제
+	// 게시글 삭제
+	@GetMapping("/board/delete/{board_no}")
+	public String deleteBoard(int board_no) {
+		int result = boardService.deleteBoard(board_no);
+		
+		return "/board/list";
 	}
 	
 	

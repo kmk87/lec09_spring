@@ -15,10 +15,22 @@ public class BoardService {
 	@Autowired
 	BoardDao boardDao;
 	
+	public int deleteBoard(int board_no) {
+		int result = 0;
+		try {
+			result = boardDao.deleteBoard(board_no);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	// 수정
 	public Board selectBoardOne(int board_no) {
 		Board vo = null;
 		try {
-			vo = boardDao.selectBardOne(board_no);
+			vo = boardDao.selectBoardOne(board_no);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
