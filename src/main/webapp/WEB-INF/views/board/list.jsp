@@ -56,7 +56,9 @@
 										<td><c:out value="${b.board_title }"/></td>
 										<td><c:out value="${b.board_content }"/></td>
 										<td><fmt:formatDate pattern="yy-MM-dd" value="${b.reg_date }"/></td>
-										<td><a href="/board/${b.board_no }">상세</a></td>
+										<td>
+											<a href="/board/${b.board_no }">상세</a>
+										</td>
 									</tr>
 								</c:forEach>
 							</c:otherwise>

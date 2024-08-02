@@ -14,6 +14,18 @@ public class BoardDao {
 	@Autowired
 	SqlSession sqlSession;
 	
+	public int updateBoard(Board vo) {
+		return sqlSession.update("boardMapper.updateBoard", vo);
+	}
+	
+	public Board selectBardOne(int board_no) {
+		return sqlSession.selectOne("boardMapper.selectBardOne",board_no);
+	}
+	
+	public int insertBoard(Board vo) {
+		return sqlSession.insert("boardMapper.insertBoard",vo);
+	}
+	
 	// 제목으로 검색
 	
 	// 페이징

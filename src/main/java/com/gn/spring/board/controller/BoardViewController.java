@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.gn.spring.board.model.service.BoardService;
 import com.gn.spring.board.model.vo.Board;
@@ -70,6 +71,25 @@ public class BoardViewController {
 	public String cteateBoardPage() {
 		// /WEB-INF/views/board/create.jsp
 		return "/board/create";
+	}
+	
+	// 상세 화면 이동
+	@GetMapping("/board/{board_no}")
+	public String selectBoardOne(@PathVariable("board_no") int board_no,
+			Model model) {
+		LOGGER.info("게시글 PK : "+board_no);
+		Board vo = boardService.selectBoardOne(board_no);
+		model.addAttribute("vo",vo);
+		// WEB-INF/views/board/detail.jsp
+		return "/board/detail";
+	}
+	
+	@GetMapping("/board/update/{board_no}")
+	public String updateBoard(@PathVariable("board_no") int board_no,
+			Model model) {
+		Board vo = boardService.selectBoardOne(board_no);
+		model.addAttribute("vo",vo);
+		return "/board/update";
 	}
 	
 	

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시글 등록</title>
+<title>게시글 수정</title>
 <link href="<c:url value='/resources/css/board/create.css'/>" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -14,75 +14,72 @@
 	<section>
 		<div id="section_wrap">
 			<div class="word">
-				<h3>게시글 등록</h3>
+				<h3>게시글 수정</h3>
 			</div><br>
 			<div class="register_board_form">
-				<form id="boardAddFrm">	
-					<input type="text" name="board_title" placeholder="게시글 제목을 입력하세요."> <br>
-					<input type="text" name="board_content" placeholder="게시글 내용을 입력하세요."> <br>
+				<form id="boardUpdateFrm">	
+					<input type="text" name="board_title" value="${vo.board_title }"> <br>
+					<input type="text" name="board_content" value="${vo.board_content }"> <br>
 					<input type="file" name="file"><br>
-					<input type="submit" value="등록"> 
+					<span> ※ 이미지 파일을 수정하시려면 새로운 파일을 등록하세요. </span><br>
+					<input type="submit" value="수정"> 
 				</form>
 			</div>
 		</div>
 	</section>
 	<script>
-		const form = document.getElementById("boardAddFrm");
+		// 1. id가 boardUpdateFrm인 form태그 submit
+		// 2. 기본 이벤트 차단
+		// 3. 제목, 내용 입력 여부 확인
+		// 4. 파일이 입력됐다면 -> 이미지인지 확인
+	
+		const form = document.getElementById("boardUpdateFrm");
 		form.addEventListener('submit',(e)=>{
-			/* 유효성 검사 */
-			e.preventDefault(); 
+			e.preventDefault();
 			let vali_check = false;
 			let vali_text = "";
-			if(form.board_title.value == ""){
+			if(form.board_title.value==""){
 				vali_text += '제목을 입력하세요';
 				form.board_title.focus();
 			} else if(form.board_content.value == ""){
 				vali_text += '내용을 입력하세요';
 				form.board_content.focus();
-			} else if(form.file.value == ""){
-				vali_text += '이미지 파일을 선택하세요';
-				form.file.focus();
 			} else if(form.file.value){
 				const val = form.file.value;
 				const idx = val.lastIndexOf('.');
 				const type = val.substring(idx+1,val.length);
-				if(type == 'jpg' || type=='jpeg' || type=='png'){
+				if(type == 'jpg' || type == 'jpeg' || type == 'png'){
 					vali_check = true;
 				} else{
 					vali_text += '이미지 파일만 선택할 수 있습니다.';
 					form.file.value = '';
 				}
+			} else {
+				vali_check = true;
 			}
-			
-			
-			if(vali_check == false){
-				alert(vali_text);
-			} else{
-				// fetch 작업
-				const payload = new FormData(form);
-				fetch('<%=request.getContextPath()%>/board',{
-					method : 'POST',
-					body : payload	
-				})
-				.then(response => response.json())
-				.then(data => {
-					alert(data.res_msg);
-					if(data.res_code == '200'){
-						location.href="<%=request.getContextPath()%>/board";
-					}
-				})
-			}
-			
-			
-			
-			
-			
-		});
+		
+		if(vali_check == false){
+			alert(vali_text);
+		} else{
+			const payload = new FormData(form);
+			fetch('<%=request.getContextPath()%>/board/${vo.board_no}',{
+				method : 'POST',
+				body : payload
+			})
+			.then(response => response.json())
+			.then(data => {
+				alert(data.res_msg);
+				if(data.res_code == '200'){
+					loaction.href='<%=request.getContextPath()%>/board${vo.board_no}'
+				}
+			})
+		}
 		
 		
 		
+		})
 		
-		
+			
 	</script>
 </body>
 </html>

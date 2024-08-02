@@ -15,6 +15,27 @@ public class BoardService {
 	@Autowired
 	BoardDao boardDao;
 	
+	public Board selectBoardOne(int board_no) {
+		Board vo = null;
+		try {
+			vo = boardDao.selectBardOne(board_no);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return vo;
+	}
+	
+	public int insertBoard(Board vo) {
+		int result = 0;
+		try {
+			result = boardDao.insertBoard(vo);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	// 페이징
 	public int selectBoardCount(Board option) {
 		int result = 0;
@@ -37,6 +58,16 @@ public class BoardService {
 			e.printStackTrace();
 		}
 		return resultList;
+	}
+	
+	public int updateBoard(Board vo){
+		int result = 0;
+		try {
+			result = boardDao.updateBoard(vo);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 }

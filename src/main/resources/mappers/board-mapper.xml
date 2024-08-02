@@ -3,6 +3,34 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardMapper">
+	
+	<update id="updateBoard" parameterType="com.gn.spring.board.model.vo.Board">
+    	UPDATE `board`
+    	SET
+    	    board_title = #{board_title},
+        	board_content = #{board_content}
+    	<if test='ori_thumbnail != null and new_thumbnail != null'>
+        	,ori_thumbnail = #{ori_thumbnail},
+        	new_thumbnail = #{new_thumbnail}
+    	</if>
+    	WHERE board_no = #{board_no}
+	</update>
+	
+	<select id="selectBardOne" parameterType="_int" resultType="com.gn.spring.board.model.vo.Board">
+		SELECT * 
+		FROM `board`
+		<where>
+			board_no = #{board_no}
+		</where>
+	</select>
+
+
+	<!-- 게시글 등록 -->
+	<insert id="insertBoard" parameterType="com.gn.spring.board.model.vo.Board">
+		INSERT INTO `board`(board_title,board_content,ori_thumbnail,new_thumbnail)
+		VALUES (#{board_title},#{board_content},#{ori_thumbnail},#{new_thumbnail})
+	</insert>
+	
 	<!-- 게시글 제목으로 조회 -->
 	
 
