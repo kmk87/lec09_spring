@@ -46,6 +46,7 @@ public class BoardViewController {
 		
 		// 제목으로 검색
 		// 아무것도 써줄 필요없음. option에 들어가있음
+		// 아래 페이징에 매개변수 option 넣어주고 매퍼 변경해줌
 		
 		// 페이징
 		option.setTotalData(boardService.selectBoardCount(option));
@@ -63,7 +64,13 @@ public class BoardViewController {
 		return "/board/list";
 	}
 	
-	
+	// 화면만 전환하는 역할
+	@GetMapping("/board/create")
+	// 게시글 등록
+	public String cteateBoardPage() {
+		// /WEB-INF/views/board/create.jsp
+		return "/board/create";
+	}
 	
 	
 }
