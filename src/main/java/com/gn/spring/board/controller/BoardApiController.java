@@ -7,6 +7,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -99,6 +101,19 @@ public class BoardApiController {
 		
 	}
 	
+	
+	@ResponseBody
+	@DeleteMapping("/board/{board_no}")
+	public Map<String,String> deleteBoard(@PathVariable int board_no) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("res_code", "404");
+		map.put("res_msg", "게시글이 성공적으로 삭제되었습니다.");
+		if(boardService.deleteBoard(board_no) > 0) {
+			map.put("res_code", "200");
+			map.put("res_msg", "게시글이 성공적으로 삭제되었습니다.");
+		}
+		return map;
+	}
 	
 
 }
