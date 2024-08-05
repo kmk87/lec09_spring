@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    https://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/security 
+    http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+	<!-- 
+		* http : 필터를 적용할 실질적 경로 설정
+		auto-config : 자동 설정 여부
+		use-expressions : 스프링 EL(표현법)을 사용할 것인가 여부
+		intercept-url : 스프링 시큐리티가 감시하는 url과 권한 
+
+	 -->
+	<http auto-config="true" use-expressions="false">
+		<intercept-url pattern="/board/**" access="ROLE_USER"/>
+	</http>
+
+
+	<!-- 
+		* authentication-manager : AuthenticationManager 설정
+		authentication-provider : AuthenticationProvider 설정
+		user-service : 간단하게 UserDetails 정보를 설정 할 수 있음
+		password 앞에 {noop} 사용 -> 암호화 없이 시큐리티 동작 확인 가능
+		
+	 -->
+
+	<authentication-manager>
+		<authentication-provider>
+			<user-service>
+				<user name="admin" password="{noop}admin" authorities="ROLE_ADMIN" />
+				<user name="user" password="{noop}user" authorities="ROLE_USER"/>
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+
+
+
+</beans:beans>
