@@ -25,6 +25,8 @@
 		<intercept-url pattern="/" access="permitAll()"/>
 		<intercept-url pattern="/resources/**" access="permitAll()"/>
 		<intercept-url pattern="/board/**" access="isAuthenticated()"/>
+		<intercept-url pattern="/join" access="permitAll()"/>
+		
 	<!-- 
 		*로그인 페이지 관련 속성 설정  
 		login-page : 로그인 화면 전환 url

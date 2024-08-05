@@ -14,10 +14,10 @@
 		<div class="menu">
 			<ul>
 				<li>
-					<a href="<c:url value='/board'/>">로그인</a>
+					<a href="<c:url value='/loginPage'/>">로그인</a>
 				</li>
 				<li>
-					<a href="#">회원가입</a>
+					<a href="<c:url value='/join'/>">회원가입</a>
 				</li>
 				<li>
 					<form method="post" action="/logout">

@@ -12,4 +12,9 @@ public class MemberViewController {
 		return "member/login";
 	}
 	
+	@GetMapping("/join")
+	public String joinPage() {
+		return "member/join";
+	}
+	
 }
