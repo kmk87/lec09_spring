@@ -15,11 +15,36 @@
 		intercept-url : 스프링 시큐리티가 감시하는 url과 권한 
 
 	 -->
-	<http auto-config="true" use-expressions="false">
+	<!-- <http auto-config="true" use-expressions="false">
 		<intercept-url pattern="/board/**" access="ROLE_USER"/>
+	</http> -->
+	
+	<http pattern="/" security="none" />
+	<http pattern="/resources/**" security="none" />
+	<http auto-config="true" use-expressions="true">
+		<intercept-url pattern="/board/**" access="isAuthenticated()"/>
+	<!-- 
+		*로그인 페이지 관련 속성 설정  
+		login-page : 로그인 화면 전환 url
+		login-processing-url : 로그인 기능 url(default / login)
+		username-parameter : 로그인시에 전송되는 아이디 name 값
+		password-parameter : 로그인시에 전송되는 비밀번호 name 값
+		default-target-url : 로그인 성공시 이동할 url
+		authentication-failure-url : 로그인 실패시 이동할 url 설정
+	-->
+	<form-login 
+		login-page="/loginPage"
+		username-parameter="user_id"
+		password-parameter="user_pw"
+		default-target-url="/"
+		authentication-failure-url="/loginPage"
+	/>
 	</http>
-
-
+	
+		
+	
+	
+	
 	<!-- 
 		* authentication-manager : AuthenticationManager 설정
 		authentication-provider : AuthenticationProvider 설정
