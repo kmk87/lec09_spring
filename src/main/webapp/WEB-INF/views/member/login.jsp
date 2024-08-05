@@ -18,8 +18,9 @@
 			</div>
 			<div class="login_form">
 				<form action="<c:url value='/login'/>" method="post">
-					<input type="text" name="user_id"><br>
-					<input type="text" name="user_pw"><br> 
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<input type="text" name="user_id" placeholder="아이디"><br>
+					<input type="password" name="user_pw" placeholder="비밀번호"><br> 
 					<input type="submit" value="로그인">
 				</form>
 			</div>
