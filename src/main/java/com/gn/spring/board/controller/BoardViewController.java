@@ -21,7 +21,7 @@ public class BoardViewController {
 	@Autowired
 	BoardService boardService;
 	
-	private static final Logger LOGGER = LogManager.getLogger(BoardViewController.class);
+	
 	
 	
 	
@@ -54,7 +54,7 @@ public class BoardViewController {
 		
 		
 		List<Board> resultList = boardService.selectBoardList(option);
-		LOGGER.info(resultList);
+	
 		
 		// 2. Model(매개변수 설정!!) 위의 (Model model)
 		model.addAttribute("resultList",resultList);
@@ -77,7 +77,7 @@ public class BoardViewController {
 	@GetMapping("/board/{board_no}")
 	public String selectBoardOne(@PathVariable("board_no") int board_no,
 			Model model) {
-		LOGGER.info("게시글 PK : "+board_no);
+		
 		Board vo = boardService.selectBoardOne(board_no);
 		model.addAttribute("vo",vo);
 		// WEB-INF/views/board/detail.jsp
@@ -93,14 +93,6 @@ public class BoardViewController {
 		return "/board/update";
 	}
 	
-	// 과제
-	// 게시글 삭제
-	@GetMapping("/board/delete/{board_no}")
-	public String deleteBoard(int board_no) {
-		int result = boardService.deleteBoard(board_no);
-		
-		return "/board/list";
-	}
 	
 	
 }
