@@ -22,5 +22,7 @@ public class MemberDao {
 	}
 	
 	
-	
+	public Member selectMemberById(String user_id) {
+		return sqlSession.selectOne("memberMapper.selectMemberById",user_id);
+	}
 }

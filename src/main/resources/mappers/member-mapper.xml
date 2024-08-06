@@ -12,6 +12,16 @@
 	</insert>
 	
 	
+	<!-- 사용자 아이디 가져오기 -->
+	<select id="selectMemberById" parameterType="string" 
+	resultType="com.gn.spring.member.model.vo.Member">
+		SELECT * 
+		FROM `user`
+		<where>
+			user_id = #{user_id}
+		</where>
+	
+	</select>
 
 	
 </mapper>

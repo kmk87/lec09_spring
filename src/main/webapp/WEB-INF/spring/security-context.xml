@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
     xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans 
     https://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/security 
-    http://www.springframework.org/schema/security/spring-security.xsd">
-
+    http://www.springframework.org/schema/security/spring-security.xsd
+    http://www.springframework.org/schema/context 
+    https://www.springframework.org/schema/context/spring-context.xsd">
+	
 
 	<!-- 
 		* http : 필터를 적용할 실질적 경로 설정
@@ -41,8 +44,15 @@
 		username-parameter="user_id"
 		password-parameter="user_pw"
 		default-target-url="/"
-		authentication-failure-url="/loginPage"
+		authentication-failure-url="/loginError"
 	/>
+	
+		<!-- 
+			1.authentication-failure-url 수정(에러페이지 화면 전환)
+			2. com.gn.spring.common.Error 클래스 생성 -> controller지정
+			3. views/error/404.jsp 페이지 생성
+		
+		 -->
 	
 		<!-- 
 			* 로그아웃 관련 설정
@@ -74,9 +84,14 @@
 		password 앞에 {noop} 사용 -> 암호화 없이 시큐리티 동작 확인 가능
 		
 	 -->
+	 <!-- 시큐리티 설정 -->
+	
+	<context:annotation-config/>
+	<context:component-scan base-package="com.gn.spring"/>
 	
 	<authentication-manager>
-		<authentication-provider>
+		<authentication-provider user-service-ref="loginService">
+			<password-encoder ref="bcryptPassword"/>
 			
 		</authentication-provider>
 	</authentication-manager>
