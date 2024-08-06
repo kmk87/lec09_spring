@@ -31,7 +31,7 @@
 				<!-- 인증된 유저만 접근 가능 : isAuthenticated() -->
 				<sec:authorize access="isAuthenticated()">
 					<li>
-						<sec:authentication property="principal"/>
+						<sec:authentication property="principal.member.user_name"/>
 					</li>
 					<li>
 						<form method="post" action="/logout">

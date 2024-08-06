@@ -64,9 +64,16 @@
 		 <logout 
 		 	logout-url="/logout"
 		 	logout-success-url = "/"
-		 	delete-cookies ="JSESSIONID"
+		 	delete-cookies ="JSESSIONID, remember-me"
 		 />
 		 
+		 <!-- 
+		 	token-validity-seconds : 쿠키 지속 시간(로그인 지속 시간-7일넣어줌)
+		  -->
+		 <remember-me 
+		 	token-validity-seconds="604800"
+		 	data-source-ref="dataSource"
+		 />
 		 
 	</http>
 	
