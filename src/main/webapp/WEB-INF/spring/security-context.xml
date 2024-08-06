@@ -60,8 +60,11 @@
 		 
 	</http>
 	
+	<!-- Spring Securtiy에서 비밀번호 암호화 로직 담당 Bean 등록 -->	
+	<beans:bean id="bcryptPassword" 
+	class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 		
-	
+		
 	
 	
 	<!-- 
@@ -71,15 +74,24 @@
 		password 앞에 {noop} 사용 -> 암호화 없이 시큐리티 동작 확인 가능
 		
 	 -->
-
+	
 	<authentication-manager>
+		<authentication-provider>
+			
+		</authentication-provider>
+	</authentication-manager>
+
+
+
+
+	<!-- <authentication-manager>
 		<authentication-provider>
 			<user-service>
 				<user name="admin" password="{noop}admin" authorities="ROLE_ADMIN" />
 				<user name="user" password="{noop}user" authorities="ROLE_USER"/>
 			</user-service>
 		</authentication-provider>
-	</authentication-manager>
+	</authentication-manager> -->
 
 	<beans:bean id="customHttpFirewall" 
 	class="org.springframework.security.web.firewall.StrictHttpFirewall">
@@ -87,5 +99,12 @@
 		
 	</beans:bean>
 	<http-firewall ref="customHttpFirewall"/>
+	
+	
+	
+	
+	
+	
+	
 	
 </beans:beans>

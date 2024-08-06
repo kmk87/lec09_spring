@@ -38,7 +38,22 @@
 			
 			
 			// 유효성 검사 추가
+			let vali_check = false;
+			let vali_text = "";
 			
+			if(form.user_id.value == ""){
+				vali_text += '아이디를 입력하세요';
+				form.user_id.focus();
+			} else if(form.user_pw.value == ""){
+				vali_text += '비밀번호를 입력하세요';
+				form.user_pw.focus();
+			} else if(form.user_pw_check.value == ""){
+				vali_text += '비밀번호 확인을 입력하세요';
+				form.user_pw_check.focus();
+			} else if(form.user_name.value == ""){
+				vali_text += '이름을 입력하세요';
+				form.user_name.focus();
+			}
 			
 			
 			
@@ -63,7 +78,11 @@
 			})
 			.then(response => response.json())
 			.then(data =>{
-				console.log(data);
+				alert(data.res_msg);
+				if(data.res_code == '200'){
+					location.href='<%=request.getContextPath()%>/loginPage';
+				}
+				
 			})
 		});
 	</script>
