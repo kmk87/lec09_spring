@@ -1,5 +1,7 @@
 package com.gn.spring.member.model.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,6 +13,10 @@ public class MemberDao {
 	
 	@Autowired
 	SqlSession sqlSession;
+	
+	public List<Member> selectMemberNotSender(int sender_no){
+		return sqlSession.selectList("memberMapper.selectMemberNotSender",sender_no);
+	}
 	
 	public int createMember(Member vo) {
 		// 1. resources/mappers 폴더 아래에 member-mapper.xml 파일 생성

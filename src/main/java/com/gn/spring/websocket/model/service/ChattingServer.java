@@ -48,7 +48,13 @@ public class ChattingServer extends TextWebSocketHandler {
 				resultMap.put("res_code","200");
 				resultMap.put("res_msg",msg.getSender_no()+"님이 입장하셨습니다.");
 				resultMap.put("res_type", "open");
-				break;
+			break;
+			case "msg" :
+				resultMap.put("res_code", "200");
+				resultMap.put("res_msg", msg.getChat_msg());
+				resultMap.put("res_type", "msg");
+				resultMap.put("sender_info", msg.getSender_no());
+			break;
 		}
 		
 		// 다시 사용자한테 메시지 보내주기

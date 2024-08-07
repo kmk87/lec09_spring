@@ -43,11 +43,24 @@
 					2. 대화상대의 user_no 정보를 value에 작성하세요.
 				-->
 				<label for="receiver_no">대화상대</label>
-				<select id="receiver_no">
-					<option value="12">admin</option>
-					<option value="13">user01</option>
-					<option value="14">user02</option>
-				</select><br>
+				<input type="text" value="${receiver_no}" id="receiver_no" />
+				<%-- <select id="receiver_no">
+					<sec:authentication property="principal.member.user_no" var="sender_no"/>
+					<c:out value="${sender_no}"/>
+					<c:if test="${sender_no == '13'}">
+						<option value="12">admin</option>
+						<option value="14">user02</option>
+					</c:if>
+					<c:if test="${sender_no == '12'}">
+						<option value="13">user01</option>
+						<option value="14">user02</option>
+					</c:if>
+					<c:if test="${sender_no == '14'}">
+						<option value="12">admin</option>
+						<option value="13">user01</option>
+					</c:if>
+				</select><br> --%>
+				<br>
 				<textarea id="txt_msg" rows="3" placeholder="채팅 입력하기"></textarea><br>
 				<input type="hidden" id="sender_no" value="<sec:authentication property="principal.member.user_no"/>">
 				<input type="button" id="send_btn" value="보내기">
@@ -70,11 +83,13 @@
 			//console.log("=== 접속 ===");
 			const receiver = document.getElementById("receiver_no").value; 
 			const sender = document.getElementById('sender_no').value;
-			let obj = {
+			const obj = setMsgObj("open",'');
+			/* 위에 꺼로 표현해줄 수 있음
+					let obj = {
 					chat_type : 'open',
 					sender_no : sender,
 					receiver_no : receiver
-			};
+			}; */
 			websocket.send(JSON.stringify(obj));
 		}
 		
@@ -85,6 +100,16 @@
 			if(resp.res_code == '200'){
 				if(resp.res_type == 'open'){
 					printMsg(resp.res_msg, 'center');
+				} else if(resp.res_type == 'msg'){
+					// 메시지를 보낸 사람과 지금 화면의 주인이 같은지
+					const senderInfo = resp.sender_info;
+					const hostPage = document.getElementById("sender_no").value;
+					
+					if(Number(senderInfo) == Number(hostPage)){
+						printMsg(resp.res_msg,'right');
+					} else{
+						printMsg(resp.res_msg,'left');
+					}
 				}
 			} else{
 				alert(res_msg);
@@ -123,8 +148,35 @@
 					receiver_no : receiver
 			};
 			websocket.send(JSON.stringify(obj)); */
+			
+			const msg = document.getElementById("txt_msg").value;
+			const sender = document.getElementById("sender_no").value;
+			const receiver = document.getElementById("receiver_no").value;
+			/* 위에 꺼로 표현해줄 수 있음
+					const obj = {
+					chat_type : 'msg',
+					chat_msg : msg,
+					sender_no : sender,
+					receiver_no : receiver
+			} */
+			const obj = setMsgObj('msg', msg);
+			websocket.send(JSON.stringify(obj));
+			
 		});
-	
+		
+		// 객체 생성자 함수
+		let setMsgObj = function(chatType, chatMsg){
+			const sender = document.getElementById("sender_no").value;
+			const receiver = document.getElementById("receiver_no").value;
+			const obj = {
+					chat_type : chatType,
+					chat_msg : chatMsg,
+					sender_no : sender,
+					receiver_no : receiver
+			}
+			return obj;
+			
+		}
 	
 	
 	
