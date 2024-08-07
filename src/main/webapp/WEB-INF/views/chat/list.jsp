@@ -46,6 +46,7 @@
 				<select id="receiver_no">
 					<option value="12">admin</option>
 					<option value="13">user01</option>
+					<option value="14">user02</option>
 				</select><br>
 				<textarea id="txt_msg" rows="3" placeholder="채팅 입력하기"></textarea><br>
 				<input type="hidden" id="sender_no" value="<sec:authentication property="principal.member.user_no"/>">
@@ -66,22 +67,54 @@
 		
 		// 2. 서버에 접속이 되었을 때 실행될 함수
 		websocket.onopen = (data) =>{
-			console.log("=== 접속 ===");
+			//console.log("=== 접속 ===");
+			const receiver = document.getElementById("receiver_no").value; 
+			const sender = document.getElementById('sender_no').value;
+			let obj = {
+					chat_type : 'open',
+					sender_no : sender,
+					receiver_no : receiver
+			};
+			websocket.send(JSON.stringify(obj));
 		}
 		
 		// 3. 서버로부터 받아온 데이터를 처리하는 함수
 		websocket.onmessage = (response) => {
-			console.log(response.data);
+			//console.log(response.data);
+			const resp = JSON.parse(response.data);
+			if(resp.res_code == '200'){
+				if(resp.res_type == 'open'){
+					printMsg(resp.res_msg, 'center');
+				}
+			} else{
+				alert(res_msg);
+			}
+			
 		}
+		
+		// 화면에 메시지 출력하는 함수
+		const printMsg = function(msg,loc){
+			const div = document.createElement("div");
+			const textNode = document.createTextNode(msg);
+			div.appendChild(textNode);
+			div.className += 'my_chat'; // css용
+			div.style.textAlign = loc;
+			
+			
+			document.getElementById("chat_container").appendChild(div);
+			
+		}
+		
+		
 		
 		// 4. 서버에 접속이 끊겼을 때 실행될 함수
 		websocket.onclose = () =>{
-			console.log("=== 끊김 ===");
+			//console.log("=== 끊김 ===");
 		}
 	
 		// 5. 버튼을 클릭하면 양방향 통신 시작
 		document.getElementById("send_btn").addEventListener('click',function(){
-			const msg = document.getElementById("txt_msg").value;
+			/* const msg = document.getElementById("txt_msg").value;
 			const sender = document.getElementById("sender_no").value;
 			const receiver = document.getElementById("receiver_no").value;
 			const obj = {
@@ -89,7 +122,7 @@
 					sender_no : sender,
 					receiver_no : receiver
 			};
-			websocket.send(JSON.stringify(obj));
+			websocket.send(JSON.stringify(obj)); */
 		});
 	
 	

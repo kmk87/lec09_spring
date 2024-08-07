@@ -17,6 +17,7 @@ public class SendMessage {
 	private String receiver_no;
 	private String chat_msg;
 	private String is_from_sender;
+	private String chat_type;
 	
 	
 	
