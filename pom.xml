@@ -42,7 +42,16 @@
 		<groupId>org.aspectj</groupId>
 		<artifactId>aspectjrt</artifactId>
 		<version>${org.aspectj-version}</version>
-	</dependency>	
+	</dependency>
+	
+	<!-- aspectjweaver -->
+	<dependency>
+    	<groupId>org.aspectj</groupId>
+    	<artifactId>aspectjweaver</artifactId>
+    	<version>${org.aspectj-version}</version>
+    	<scope>runtime</scope>
+	</dependency>
+		
 	<!-- Logging -->
 	<dependency>
 	  <groupId>org.apache.logging.log4j</groupId>
@@ -148,6 +157,38 @@
     	<artifactId>jackson-mapper-asl</artifactId>
     	<version>1.9.13</version>
 	</dependency> 
+	
+	<!-- spring Security 의존성 설정-->
+	<!--  암호화처리를 위한 springsecurity 의존성 등록 단방향암호화  -->
+	<dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-core</artifactId>
+		<version>5.7.2</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-web</artifactId>
+		<version>5.7.2</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-config</artifactId>
+		<version>5.7.2</version>
+	</dependency>
+	
+	<dependency>
+    	<groupId>org.springframework.security</groupId>
+    	<artifactId>spring-security-taglibs</artifactId>
+    	<version>5.7.2</version>
+	</dependency>
+	
+	<!-- Websocket 적용 -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-websocket</artifactId>
+		<version>${org.springframework-version}</version>
+	</dependency> 
+
   </dependencies>
  
  

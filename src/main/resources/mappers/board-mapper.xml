@@ -6,7 +6,7 @@
 
 	<delete id="deleteBoard" parameterType="_int">
 		DELETE FROM `board`
-		<where> 
+		<where>
 			board_no = #{board_no}
 		</where>
 	</delete>
